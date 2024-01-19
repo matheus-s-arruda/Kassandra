@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dflxgdgll0tf2"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3f510"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_mkm3u"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_3f510")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.771888, 0)
+mesh = SubResource("PrismMesh_mkm3u")

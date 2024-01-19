@@ -1,0 +1,196 @@
+[gd_scene load_steps=16 format=3 uid="uid://bx7v7fo4bgd0g"]
+
+[ext_resource type="Script" path="res://addons/kassandra/scripts/editor.gd" id="1_allj3"]
+[ext_resource type="Texture2D" uid="uid://ca0aof45qxm0w" path="res://addons/kassandra/assets/PackedScene.svg" id="1_vwycp"]
+[ext_resource type="Script" path="res://addons/kassandra/scripts/editor_button.gd" id="2_46es6"]
+[ext_resource type="Texture2D" uid="uid://mf4v18dy31yu" path="res://addons/kassandra/assets/Script.svg" id="2_eqsfw"]
+[ext_resource type="Texture2D" uid="uid://7shwu6b8l586" path="res://addons/kassandra/assets/Object.svg" id="3_4u3br"]
+[ext_resource type="Texture2D" uid="uid://d3se041b5i6gc" path="res://addons/kassandra/assets/ShaderMaterial.svg" id="4_dgrh7"]
+[ext_resource type="Texture2D" uid="uid://ds8jx8kqt8q8v" path="res://addons/kassandra/assets/Mesh.svg" id="5_s3t35"]
+[ext_resource type="Texture2D" uid="uid://wdi0otrnajqh" path="res://addons/kassandra/assets/Search.svg" id="6_lob5u"]
+[ext_resource type="Script" path="res://addons/kassandra/scripts/scenes_panel.gd" id="8_i17jv"]
+[ext_resource type="Texture2D" uid="uid://d13q2qkjcym1k" path="res://addons/kassandra/assets/EditorPlugin.svg" id="8_k56b7"]
+[ext_resource type="Texture2D" uid="uid://bc5j5jio52cai" path="res://addons/kassandra/assets/GuiScrollArrowLeft.svg" id="9_j1jv6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h05nv"]
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.388235, 0.639216, 0.862745, 1)
+
+[sub_resource type="SystemFont" id="SystemFont_mnylp"]
+font_weight = 600
+hinting = 2
+
+[sub_resource type="LabelSettings" id="LabelSettings_4r8gh"]
+font = SubResource("SystemFont_mnylp")
+font_size = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_av2j7"]
+bg_color = Color(0.113725, 0.133333, 0.160784, 1)
+
+[node name="editor" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+alignment = 1
+script = ExtResource("1_allj3")
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "Choose an item type you want to view"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="scenes" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "scenes"
+icon = ExtResource("1_vwycp")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_46es6")
+
+[node name="scripts" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "scripts"
+icon = ExtResource("2_eqsfw")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_46es6")
+
+[node name="resources" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "resources"
+icon = ExtResource("3_4u3br")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_46es6")
+
+[node name="materials" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "materials"
+icon = ExtResource("4_dgrh7")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_46es6")
+
+[node name="meshes" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "meshes"
+icon = ExtResource("5_s3t35")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_46es6")
+
+[node name="plugins" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "plugins"
+icon = ExtResource("8_k56b7")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_46es6")
+
+[node name="all" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tooltip_text = "all"
+icon = ExtResource("6_lob5u")
+flat = true
+icon_alignment = 1
+script = ExtResource("2_46es6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="scenes" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/scenes"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h05nv")
+text = "Scenes"
+label_settings = SubResource("LabelSettings_4r8gh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/scenes"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_av2j7")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/scenes/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/scenes/PanelContainer/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/scenes/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("8_i17jv")
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="return" type="Button" parent="MarginContainer/Control"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+offset_top = 8.0
+offset_right = 30.0
+offset_bottom = 33.0
+focus_mode = 0
+icon = ExtResource("9_j1jv6")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="FileDialog" type="FileDialog" parent="MarginContainer/Control"]
+
+[connection signal="pressed" from="HBoxContainer/scenes" to="." method="_on_scenes_pressed"]
+[connection signal="pressed" from="MarginContainer/Control/return" to="." method="_on_return_pressed"]

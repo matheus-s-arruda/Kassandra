@@ -1,0 +1,11 @@
+res://teste.tscn
+res://addons/kassandra/scripts/editor.gd
+res://addons/kassandra/scenes/editor.tscn
+res://addons/kassandra/scripts/scenes_panel.gd
+res://addons/kassandra/kassandra.gd
+res://addons/kassandra/scenes/item_scene.tscn
+res://addons/kassandra/scripts/item_scene.gd
+res://scenes/sim.tscn
+res://scenes/igreja.tscn
+res://test/igreja.tscn
+res://test/new_standard_material_3d.tres
