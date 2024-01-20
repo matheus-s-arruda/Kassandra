@@ -1,3 +1,12 @@
+Button
+PanelContainer
+Panel
+Control
+MarginContainer
+Label
+TextureRect
+VBoxContainer
+GridContainer
 MeshInstance3D
 FileDialog
 ConfirmationDialog

@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://dckmqobi6oci6"]
+
+[ext_resource type="Script" path="res://addons/kassandra/scripts/item_script.gd" id="1_a5077"]
+[ext_resource type="Texture2D" uid="uid://mf4v18dy31yu" path="res://addons/kassandra/assets/Script.svg" id="1_qytoq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qvolw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bifeg"]
+bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="item" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qvolw")
+script = ExtResource("1_a5077")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Panel" type="PanelContainer" parent="VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bifeg")
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/Panel"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("1_qytoq")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 49)
+layout_mode = 2
+text = "elenegegeg.gd"
+autowrap_mode = 3
+clip_text = true
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+flat = true
+
+[node name="remove" type="Button" parent="Button"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -31.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "X"

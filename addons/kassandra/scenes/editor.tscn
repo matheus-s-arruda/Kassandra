@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bx7v7fo4bgd0g"]
+[gd_scene load_steps=17 format=3 uid="uid://bx7v7fo4bgd0g"]
 
 [ext_resource type="Script" path="res://addons/kassandra/scripts/editor.gd" id="1_allj3"]
 [ext_resource type="Texture2D" uid="uid://ca0aof45qxm0w" path="res://addons/kassandra/assets/PackedScene.svg" id="1_vwycp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://addons/kassandra/scripts/scenes_panel.gd" id="8_i17jv"]
 [ext_resource type="Texture2D" uid="uid://d13q2qkjcym1k" path="res://addons/kassandra/assets/EditorPlugin.svg" id="8_k56b7"]
 [ext_resource type="Texture2D" uid="uid://bc5j5jio52cai" path="res://addons/kassandra/assets/GuiScrollArrowLeft.svg" id="9_j1jv6"]
+[ext_resource type="Script" path="res://addons/kassandra/scripts/scripts_panel.gd" id="11_6fuip"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h05nv"]
 bg_color = Color(0.211765, 0.239216, 0.290196, 1)
@@ -41,6 +42,7 @@ script = ExtResource("1_allj3")
 metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 text = "Choose an item type you want to view"
@@ -48,6 +50,7 @@ horizontal_alignment = 1
 vertical_alignment = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 theme_override_constants/separation = 20
@@ -131,7 +134,6 @@ icon_alignment = 1
 script = ExtResource("2_46es6")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 8
@@ -174,6 +176,42 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("8_i17jv")
 
+[node name="scripts" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/scripts"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h05nv")
+text = "Scripts"
+label_settings = SubResource("LabelSettings_4r8gh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/scripts"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_av2j7")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/scripts/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/scripts/PanelContainer/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/scripts/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 12
+script = ExtResource("11_6fuip")
+
 [node name="Control" type="Control" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
@@ -193,4 +231,5 @@ expand_icon = true
 [node name="FileDialog" type="FileDialog" parent="MarginContainer/Control"]
 
 [connection signal="pressed" from="HBoxContainer/scenes" to="." method="_on_scenes_pressed"]
+[connection signal="pressed" from="HBoxContainer/scripts" to="." method="_on_scripts_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/return" to="." method="_on_return_pressed"]
