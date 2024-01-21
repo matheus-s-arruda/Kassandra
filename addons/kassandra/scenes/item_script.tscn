@@ -1,41 +1,68 @@
-[gd_scene load_steps=5 format=3 uid="uid://dckmqobi6oci6"]
+[gd_scene load_steps=7 format=3 uid="uid://dckmqobi6oci6"]
 
 [ext_resource type="Script" path="res://addons/kassandra/scripts/item_script.gd" id="1_a5077"]
 [ext_resource type="Texture2D" uid="uid://mf4v18dy31yu" path="res://addons/kassandra/assets/Script.svg" id="1_qytoq"]
+[ext_resource type="Texture2D" uid="uid://cwakiqohk8lqy" path="res://addons/kassandra/assets/trash.png" id="3_o86yb"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qvolw"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hyki"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.278431, 0.490196, 0.588235, 0.211765)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6n1k2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bifeg"]
 bg_color = Color(0.211765, 0.239216, 0.290196, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [node name="item" type="PanelContainer"]
-theme_override_styles/panel = SubResource("StyleBoxEmpty_qvolw")
+offset_top = 1.0
+offset_right = 88.0
+offset_bottom = 146.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_2hyki")
 script = ExtResource("1_a5077")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 0
 
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxEmpty_6n1k2")
+
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 8
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
 
 [node name="Panel" type="PanelContainer" parent="VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(64, 64)
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bifeg")
 
 [node name="TextureRect" type="TextureRect" parent="VBoxContainer/MarginContainer/Panel"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("1_qytoq")
 expand_mode = 1
+stretch_mode = 5
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 49)
@@ -44,17 +71,22 @@ text = "elenegegeg.gd"
 autowrap_mode = 3
 clip_text = true
 
-[node name="Button" type="Button" parent="."]
+[node name="drag_area" type="Control" parent="."]
 layout_mode = 2
-focus_mode = 0
-flat = true
+mouse_filter = 1
 
-[node name="remove" type="Button" parent="Button"]
+[node name="remove" type="Button" parent="drag_area"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -31.0
-offset_bottom = 31.0
+offset_left = -28.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 28.0
 grow_horizontal = 0
-text = "X"
+icon = ExtResource("3_o86yb")
+icon_alignment = 1
+expand_icon = true
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]

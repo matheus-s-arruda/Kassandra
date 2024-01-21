@@ -63,7 +63,7 @@ func _scene_popup():
 
 
 func _scene_popup_pressed(index: int):
-	if index == KASSANDRA_POPUP_INDEX:
+	if scene_popup.get_item_index(KASSANDRA_POPUP_ID):
 		var scene_name = scene_tabbar.get_tab_title(scene_tabbar.current_tab)
 		var scene_path: String = editor_interface.get_open_scenes()[scene_tabbar.current_tab]
 		
@@ -79,7 +79,7 @@ func _scene_popup_pressed(index: int):
 			type = 0
 			
 		var id := uuid()
-		while data.has(id):
+		while data.scenes.has(id):
 			id = uuid()
 		
 		data.scenes[id] = [scene_name, scene_path, type, project_global_path]
@@ -99,7 +99,7 @@ func _scripts_popup():
 func _script_popup_pressed(index: int):
 	if scripts_popup.get_item_id(index) == KASSANDRA_POPUP_ID or scripts_popup2.get_item_id(index) == KASSANDRA_POPUP_ID:
 		var id := uuid()
-		while data.has(id):
+		while data.scripts.has(id):
 			id = uuid()
 		
 		var script: Script = editor_interface.get_script_editor().get_current_script()

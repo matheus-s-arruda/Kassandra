@@ -1,0 +1,2 @@
+CompressedTexture2D
+Texture2DRD

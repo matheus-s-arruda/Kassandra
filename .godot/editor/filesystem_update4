@@ -1,6 +1,5 @@
 res://addons/kassandra/scenes/editor.tscn
 res://addons/kassandra/scripts/editor.gd
-res://addons/kassandra/scenes/item_script.tscn
-res://addons/kassandra/scripts/item_script.gd
 res://addons/kassandra/kassandra.gd
 res://addons/kassandra/scripts/scripts_panel.gd
+res://addons/kassandra/scenes/item_script.tscn

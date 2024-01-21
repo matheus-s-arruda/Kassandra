@@ -1,5 +1,5 @@
 @tool
-extends GridContainer
+extends HFlowContainer
 
 
 const ITEM_SCRIPT := preload("res://addons/kassandra/scenes/item_script.tscn")
@@ -7,7 +7,7 @@ const ITEM_SCRIPT := preload("res://addons/kassandra/scenes/item_script.tscn")
 @onready var editor = $"../../../../../.."
 
 
-func load_scenes(scripts: Dictionary):
+func load_scripts(scripts: Dictionary):
 	get_children().map(func(c): c.queue_free())
 	await get_tree().process_frame
 	
