@@ -140,24 +140,6 @@ theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="Control" type="Control" parent="MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="return" type="Button" parent="MarginContainer/Control"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 1
-offset_top = 8.0
-offset_right = 30.0
-offset_bottom = 33.0
-focus_mode = 0
-icon = ExtResource("9_j1jv6")
-flat = true
-icon_alignment = 1
-expand_icon = true
-
-[node name="FileDialog" type="FileDialog" parent="MarginContainer/Control"]
-
 [node name="scenes" type="VBoxContainer" parent="MarginContainer"]
 visible = false
 layout_mode = 2
@@ -229,6 +211,24 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("11_6fuip")
+
+[node name="Control" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="return" type="Button" parent="MarginContainer/Control"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+offset_top = 8.0
+offset_right = 30.0
+offset_bottom = 33.0
+focus_mode = 0
+icon = ExtResource("9_j1jv6")
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="FileDialog" type="FileDialog" parent="MarginContainer/Control"]
 
 [connection signal="pressed" from="HBoxContainer/scenes" to="." method="_on_scenes_pressed"]
 [connection signal="pressed" from="HBoxContainer/scripts" to="." method="_on_scripts_pressed"]

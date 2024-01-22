@@ -44,8 +44,6 @@ func load_data(data: Dictionary):
 	if not itens_scene:
 		await ready
 	
-	print(data)
-	
 	itens_scene.load_scenes(data.scenes)
 	itens_scripts.load_scripts(data.scripts)
 
