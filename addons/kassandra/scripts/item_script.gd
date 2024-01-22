@@ -13,6 +13,7 @@ var flag_click: bool
 @onready var p := EditorPlugin.new()
 var script_editor_base: ScriptEditorBase
 
+var editor: Control
 var _path: String
 var base_control: Control
 var data: Array
@@ -84,9 +85,9 @@ func _on_gui_input(event: InputEvent):
 			timer_flag_click = 0.0
 			flag_click = false
 			
-			load_and_save_script()
-			p.get_editor_interface().edit_script(load(data[1]))
-			p.get_editor_interface().set_main_screen_editor("Script")
+			editor.copy_and_save(_path, data[1])
+			#p.get_editor_interface().edit_script(load(data[1]))
+			#p.get_editor_interface().set_main_screen_editor("Script")
 		
 		else:
 			timer_flag_click = 1.0

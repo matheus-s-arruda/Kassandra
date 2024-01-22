@@ -19,6 +19,7 @@ func load_scripts(scripts: Dictionary):
 func create_item(data: Array):
 	var item := ITEM_SCRIPT.instantiate()
 	item.base_control = editor.plugin.base_control
+	item.editor = editor
 	item.data = data
 	add_child(item)
 	return item
