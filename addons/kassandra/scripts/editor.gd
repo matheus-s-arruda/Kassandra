@@ -29,15 +29,24 @@ var plugin: EditorPlugin
 func copy_and_save(copy_path: String, save_path: String):
 	var read_file = FileAccess.open(copy_path, FileAccess.READ)
 	if read_file:
-		var base_path: String = save_path.get_base_dir()
-		base_path = ProjectSettings.globalize_path(base_path)
-		if not DirAccess.dir_exists_absolute(base_path):
-			DirAccess.make_dir_absolute(base_path)
+		var base_path: String = save_path.get_base_dir().erase(0, 6)
+		var split = base_path.split("/")
+		var final_path: String = "res://"
 		
-		var white_file = FileAccess.open(save_path, FileAccess.WRITE)
+		for i in split.size():
+			final_path += split[i]
+			if not DirAccess.dir_exists_absolute(final_path):
+				DirAccess.make_dir_absolute(final_path)
+			final_path += "/"
+		
+		var white_file = FileAccess.open(final_path + save_path.get_file(), FileAccess.WRITE)
 		if white_file:
 			var content: String = read_file.get_as_text()
 			white_file.store_string(content)
+			white_file.close()
+			return true # sucesso
+		read_file.close()
+	# falha
 
 
 func load_data(data: Dictionary):

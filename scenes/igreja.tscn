@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bvd5ivo5ia78w"]
 
-[ext_resource type="Material" uid="uid://c46qngkloaes3" path="res://test/new_standard_material_3d.tres" id="1_nowhs"]
+[ext_resource type="Material" uid="uid://djwwegllwk3a6" path="res://resources/materials/new_standard_material_3d.tres" id="1_nowhs"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3f510"]
 material = ExtResource("1_nowhs")
