@@ -49,6 +49,23 @@ func copy_and_save(copy_path: String, save_path: String):
 	# falha
 
 
+func recover_procedural_resource(arquive: String, local_path: String): # content: .tscn, .scn, .res
+	var split := arquive.split("\n")
+	var index := 2
+	while split[index].begins_with("[ext_resource"):
+		var split2 := split[index].split(" ")
+		for path in split2:
+			if path.begins_with("path="):
+				path = path.replace("path=\"", "").replace("\"", "")
+				copy_and_save(local_path + path.erase(0, 6), path)
+				
+				var read_file = FileAccess.open(path, FileAccess.READ)
+				if read_file:
+					var new_arquive: String = read_file.get_as_text()
+					recover_procedural_resource(new_arquive, local_path)
+		index += 1
+
+
 func load_data(data: Dictionary):
 	if not itens_scene:
 		await ready

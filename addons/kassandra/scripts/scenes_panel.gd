@@ -30,8 +30,8 @@ func install_scene(id: String):
 	filedialog.size = Vector2(500, 300)
 	filedialog.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 	
-	var dir_selected := [""]
-	filedialog.dir_selected.connect(func(path: String): dir_selected[0] = path)
+	var dir_selected := ["", ""]
+	filedialog.dir_selected.connect(func(path: String): dir_selected[0] = path; dir_selected[1] = filedialog.get_line_edit().text)
 	filedialog.confirmed.connect(install_scene2.bind(id, dir_selected))
 	filedialog.canceled.connect(func(): filedialog.queue_free())
 	filedialog.show()
@@ -40,30 +40,24 @@ func install_scene(id: String):
 func install_scene2(id: String, dir_selected: Array):
 	var path_file = editor.plugin.data.scenes[id][3] + editor.plugin.data.scenes[id][1].erase(0, 6)
 	var read_file = FileAccess.open(path_file, FileAccess.READ)
-	
 	var target_path: String = dir_selected[0]
+	
 	if read_file:
 		if target_path[-1] != "/":
 			target_path += "/"
 		
-		target_path += editor.plugin.data.scenes[id][0] + ".tscn"
+		if dir_selected[1].is_empty():
+			target_path += editor.plugin.data.scenes[id][0] + ".tscn"
+		else:
+			target_path += dir_selected[1] + ".tscn"
+		
 		var white_file = FileAccess.open(target_path, FileAccess.WRITE)
 		if white_file:
 			var content: String = read_file.get_as_text()
 			white_file.store_string(content)
 			
-			recover_procedural_resource(content, editor.plugin.data.scenes[id][3])
-			#
-			#var split := content.split("\n")
-			#var index := 2
-			#while split[index].begins_with("[ext_resource"):
-				#var split2 := split[index].split(" ")
-				#for path in split2:
-					#if path.begins_with("path="):
-						#path = path.replace("path=\"", "").replace("\"", "")
-						#var resource_path = editor.plugin.data.scenes[id][3] + path.erase(0, 6)
-						#editor.copy_and_save(resource_path, path)
-				#index += 1
+			if content.begins_with("[gd_scene") or content.begins_with("[sub_resource"):
+				recover_procedural_resource(content, editor.plugin.data.scenes[id][3])
 
 
 func recover_procedural_resource(content: String, local_path: String): # content: .tscn, .scn, .res
@@ -79,7 +73,9 @@ func recover_procedural_resource(content: String, local_path: String): # content
 				var read_file = FileAccess.open(path, FileAccess.READ)
 				if read_file:
 					var new_content: String = read_file.get_as_text()
-					recover_procedural_resource(new_content, local_path)
+					
+					if new_content.begins_with("[gd_scene") or new_content.begins_with("[sub_resource"):
+						recover_procedural_resource(new_content, local_path)
 		index += 1
 
 
