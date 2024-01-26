@@ -1,8 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dckmqobi6oci6"]
+[gd_scene load_steps=7 format=3 uid="uid://8e8y81limmxw"]
 
-[ext_resource type="Script" path="res://addons/kassandra/scripts/item_script.gd" id="1_a5077"]
-[ext_resource type="Texture2D" uid="uid://mf4v18dy31yu" path="res://addons/kassandra/assets/Script.svg" id="1_qytoq"]
-[ext_resource type="Texture2D" uid="uid://cwakiqohk8lqy" path="res://addons/kassandra/assets/trash.png" id="3_o86yb"]
+[ext_resource type="Script" path="res://addons/kassandra/scripts/item_resource.gd" id="1_s3o7s"]
+[ext_resource type="Texture2D" uid="uid://mf4v18dy31yu" path="res://addons/kassandra/assets/Script.svg" id="2_xeb8p"]
+[ext_resource type="Texture2D" uid="uid://cwakiqohk8lqy" path="res://addons/kassandra/assets/trash.png" id="3_nxcxs"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hyki"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -31,7 +31,7 @@ offset_top = 1.0
 offset_right = 88.0
 offset_bottom = 146.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_2hyki")
-script = ExtResource("1_a5077")
+script = ExtResource("1_s3o7s")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -60,7 +60,7 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("1_qytoq")
+texture = ExtResource("2_xeb8p")
 expand_mode = 1
 stretch_mode = 5
 
@@ -86,7 +86,7 @@ offset_top = 4.0
 offset_right = -4.0
 offset_bottom = 28.0
 grow_horizontal = 0
-icon = ExtResource("3_o86yb")
+icon = ExtResource("3_nxcxs")
 icon_alignment = 1
 expand_icon = true
 

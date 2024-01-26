@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://ckhp8d4j6qh6n"]
-
-[ext_resource type="Script" path="res://scripts/mano.gd" id="1_6t5to"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_6ix7f"]
-
-[node name="MeshInstance3D" type="MeshInstance3D"]
-mesh = SubResource("BoxMesh_6ix7f")
-script = ExtResource("1_6t5to")

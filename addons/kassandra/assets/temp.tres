@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dlksmmco2oas6"]
+
+[ext_resource type="Shader" path="res://addons/kassandra/assets/temp.gdshader" id="1_uig4r"]
+
+[resource]
+render_priority = 1
+shader = ExtResource("1_uig4r")

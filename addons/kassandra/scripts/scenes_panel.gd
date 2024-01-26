@@ -56,27 +56,7 @@ func install_scene2(id: String, dir_selected: Array):
 			var content: String = read_file.get_as_text()
 			white_file.store_string(content)
 			
-			if content.begins_with("[gd_scene") or content.begins_with("[sub_resource"):
-				recover_procedural_resource(content, editor.plugin.data.scenes[id][3])
-
-
-func recover_procedural_resource(content: String, local_path: String): # content: .tscn, .scn, .res
-	var split := content.split("\n")
-	var index := 2
-	while split[index].begins_with("[ext_resource"):
-		var split2 := split[index].split(" ")
-		for path in split2:
-			if path.begins_with("path="):
-				path = path.replace("path=\"", "").replace("\"", "")
-				editor.copy_and_save(local_path + path.erase(0, 6), path)
-				
-				var read_file = FileAccess.open(path, FileAccess.READ)
-				if read_file:
-					var new_content: String = read_file.get_as_text()
-					
-					if new_content.begins_with("[gd_scene") or new_content.begins_with("[sub_resource"):
-						recover_procedural_resource(new_content, local_path)
-		index += 1
+			KassandraBook.recover_procedural_resource(content, editor.plugin.data.scenes[id][3])
 
 
 func remove_scene(id: String):

@@ -2,11 +2,13 @@
 extends EditorPlugin
 
 const SAVE_TEMPLATE := {
-	"scenes": {}, "scripts": {}, "resources": {}, "mateirals": {}, "meshes": {}, "plugins": {}
+	"scenes": {}, "scripts": {}, "resources": {}, "materials": {}, "meshes": {}, "plugins": {}
 }
 const SAVE_DATA_PATH := "kassandra.data"
 const KASSANDRA_POPUP_ID := 666
 const KASSANDRA_POPUP_INDEX := 13
+
+const INSPECTOR = preload("res://addons/kassandra/scripts/inspector.gd")
 
 var editor_interface: EditorInterface
 var scripts_popup2: PopupMenu
@@ -15,11 +17,12 @@ var base_control: Control
 var scene_tabbar: TabBar
 var scene_popup: PopupMenu
 var main_panel: Control
+var inspector: EditorInspectorPlugin
+var inspector_save_popup: PopupMenu
 
 var project_global_path: String = ProjectSettings.globalize_path("res://")
 var config_direction: String
 var data: Dictionary = SAVE_TEMPLATE.duplicate(true)
-
 
 func _enter_tree():
 	editor_interface = get_editor_interface()
@@ -33,6 +36,10 @@ func _enter_tree():
 	
 	main_panel.plugin = self
 	main_panel.load_data(data)
+	
+	inspector = INSPECTOR.new()
+	inspector.plugin = self
+	add_inspector_plugin(inspector)
 	
 	editor_interface.get_editor_main_screen().add_child(main_panel)
 	_make_visible(false)
@@ -52,6 +59,22 @@ func _enter_tree():
 	scripts_popup2 = editor_interface.get_script_editor().get_child(1)
 	scripts_popup2.visibility_changed.connect(_scripts_popup)
 	scripts_popup2.index_pressed.connect(_script_popup_pressed)
+	
+	inspector_save_popup = editor_interface.get_inspector().get_parent().get_child(0).get_child(2).get_popup()
+	inspector_save_popup.add_icon_item(preload("res://addons/kassandra/assets/kassandra_icon.svg"), "Save on Kassandra", KASSANDRA_POPUP_ID)
+	inspector_save_popup.index_pressed.connect(_resource_popup_pressed)
+
+
+func _exit_tree():
+	if is_instance_valid(main_panel):
+		main_panel.queue_free()
+	
+	remove_inspector_plugin(inspector)
+	
+	scripts_popup.remove_item(scripts_popup.get_index(KASSANDRA_POPUP_ID))
+	scene_popup.index_pressed.disconnect(_scene_popup_pressed)
+	scene_popup.visibility_changed.disconnect(_scene_popup)
+	inspector_save_popup.remove_item(inspector_save_popup.get_index(KASSANDRA_POPUP_ID))
 
 
 func _scene_popup():
@@ -78,9 +101,9 @@ func _scene_popup_pressed(index: int):
 		else:
 			type = 0
 			
-		var id := uuid()
+		var id := KassandraBook.uuid()
 		while data.scenes.has(id):
-			id = uuid()
+			id = KassandraBook.uuid()
 		
 		data.scenes[id] = [scene_name, scene_path, type, project_global_path]
 		
@@ -98,9 +121,9 @@ func _scripts_popup():
 
 func _script_popup_pressed(index: int):
 	if scripts_popup.get_item_id(index) == KASSANDRA_POPUP_ID or scripts_popup2.get_item_id(index) == KASSANDRA_POPUP_ID:
-		var id := uuid()
+		var id := KassandraBook.uuid()
 		while data.scripts.has(id):
-			id = uuid()
+			id = KassandraBook.uuid()
 		
 		var script: Script = editor_interface.get_script_editor().get_current_script()
 		data.scripts[id] = [script.resource_path.get_file(), script.resource_path, script.get_instance_base_type(), project_global_path]
@@ -109,13 +132,38 @@ func _script_popup_pressed(index: int):
 		main_panel.load_data(data)
 
 
-func _exit_tree():
-	if is_instance_valid(main_panel):
-		main_panel.queue_free()
-	
-	scripts_popup.remove_item(scripts_popup.get_index(KASSANDRA_POPUP_ID))
-	scene_popup.index_pressed.disconnect(_scene_popup_pressed)
-	scene_popup.visibility_changed.disconnect(_scene_popup)
+func _resource_popup_pressed(index: int):
+	if index == inspector_save_popup.get_item_index(KASSANDRA_POPUP_ID):
+		var obj: Resource = editor_interface.get_inspector().get_edited_object()
+		if obj.resource_path.is_empty():
+			var alert := AcceptDialog.new()
+			main_panel.add_child(alert)
+			
+			alert.initial_position = Window.WINDOW_INITIAL_POSITION_CENTER_PRIMARY_SCREEN
+			alert.exclusive = true
+			alert.dialog_text = "Resource not saved to disk, please save the resource to file and try again."
+			alert.show()
+			
+			# BUG editor/inspector_dock.cpp:215 - Index idx = 166 is out of bounds (methods.size() = 145). https://github.com/godotengine/godot/issues/84522
+			return
+		
+		var id := KassandraBook.uuid()
+		while data.scripts.has(id):
+			id = KassandraBook.uuid()
+		
+		var _name: String = obj.resource_path.get_file().replace(".tres", "").replace(".res", "")
+		
+		if obj is Material:
+			data.materials[id] = [_name, obj.resource_path, obj.get_class(), project_global_path]
+		
+		elif obj is Mesh:
+			data.meshes[id] = [_name, obj.resource_path, project_global_path]
+		
+		else:
+			data.resources[id] = [_name, obj.resource_path, obj.get_class(), project_global_path]
+		
+		save_data()
+		main_panel.load_data(data)
 
 
 #region MAIN PANEL
@@ -156,9 +204,3 @@ func load_data():
 			save_data()
 #endregion
 
-func uuid() -> String:
-	return "%02x%02x-%02x%02x-%02x%02x-%02x%02x" % [
-		randi() & 0b11111111, randi() & 0b11111111, randi() & 0b11111111,
-		randi() & 0b11111111, randi() & 0b11111111, randi() & 0b11111111,
-		((randi() & 0b11111111) & 0x0f) | 0x40, 	randi() & 0b11111111
-	]

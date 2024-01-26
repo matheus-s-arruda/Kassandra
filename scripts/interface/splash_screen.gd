@@ -1,4 +1,0 @@
-extends Control
-
-
-var teste

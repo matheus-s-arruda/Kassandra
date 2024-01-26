@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bx7v7fo4bgd0g"]
+[gd_scene load_steps=19 format=3 uid="uid://bx7v7fo4bgd0g"]
 
 [ext_resource type="Script" path="res://addons/kassandra/scripts/editor.gd" id="1_allj3"]
 [ext_resource type="Texture2D" uid="uid://ca0aof45qxm0w" path="res://addons/kassandra/assets/PackedScene.svg" id="1_vwycp"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://d13q2qkjcym1k" path="res://addons/kassandra/assets/EditorPlugin.svg" id="8_k56b7"]
 [ext_resource type="Texture2D" uid="uid://bc5j5jio52cai" path="res://addons/kassandra/assets/GuiScrollArrowLeft.svg" id="9_j1jv6"]
 [ext_resource type="Script" path="res://addons/kassandra/scripts/scripts_panel.gd" id="11_6fuip"]
+[ext_resource type="Script" path="res://addons/kassandra/scripts/resoucres_panel.gd" id="12_q7l4v"]
+[ext_resource type="Script" path="res://addons/kassandra/scripts/materials_panel.gd" id="13_23dy1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h05nv"]
 bg_color = Color(0.211765, 0.239216, 0.290196, 1)
@@ -212,6 +214,78 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("11_6fuip")
 
+[node name="resources" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/resources"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h05nv")
+text = "Resources"
+label_settings = SubResource("LabelSettings_4r8gh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/resources"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_av2j7")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/resources/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/resources/PanelContainer/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="HFlowContainer" parent="MarginContainer/resources/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("12_q7l4v")
+
+[node name="materials" type="VBoxContainer" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="Label" type="Label" parent="MarginContainer/materials"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_h05nv")
+text = "Materials"
+label_settings = SubResource("LabelSettings_4r8gh")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/materials"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_av2j7")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/materials/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/materials/PanelContainer/MarginContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="GridContainer" type="HFlowContainer" parent="MarginContainer/materials/PanelContainer/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("13_23dy1")
+
 [node name="Control" type="Control" parent="MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
@@ -230,6 +304,4 @@ expand_icon = true
 
 [node name="FileDialog" type="FileDialog" parent="MarginContainer/Control"]
 
-[connection signal="pressed" from="HBoxContainer/scenes" to="." method="_on_scenes_pressed"]
-[connection signal="pressed" from="HBoxContainer/scripts" to="." method="_on_scripts_pressed"]
 [connection signal="pressed" from="MarginContainer/Control/return" to="." method="_on_return_pressed"]
