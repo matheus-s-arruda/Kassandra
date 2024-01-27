@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dd0tmjcc7g383"]
 
 [ext_resource type="Script" path="res://addons/kassandra/scripts/item_material.gd" id="1_vpcsq"]
-[ext_resource type="Material" uid="uid://dlksmmco2oas6" path="res://addons/kassandra/assets/temp.tres" id="2_nbgib"]
+[ext_resource type="Material" uid="uid://dlksmmco2oas6" path="res://addons/kassandra/assets/temp.tres" id="2_mi2o4"]
 [ext_resource type="Texture2D" uid="uid://cwakiqohk8lqy" path="res://addons/kassandra/assets/trash.png" id="3_kvv0w"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hyki"]
@@ -19,7 +19,8 @@ corner_radius_bottom_left = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6n1k2"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_cedms"]
+[sub_resource type="SphereMesh" id="SphereMesh_tiwmw"]
+material = ExtResource("2_mi2o4")
 
 [node name="item" type="PanelContainer"]
 offset_top = 1.0
@@ -56,8 +57,8 @@ transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 
 
 [node name="mesh" type="MeshInstance3D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
 visible = false
-mesh = SubResource("SphereMesh_cedms")
-surface_material_override/0 = ExtResource("2_nbgib")
+mesh = SubResource("SphereMesh_tiwmw")
+surface_material_override/0 = ExtResource("2_mi2o4")
 
 [node name="Camera3D" type="Camera3D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)

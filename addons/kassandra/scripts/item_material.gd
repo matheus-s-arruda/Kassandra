@@ -11,6 +11,8 @@ extends PanelContainer
 @onready var p = EditorPlugin.new()
 @onready var pp = p.get_editor_interface().get_inspector()
 
+var dragging: bool
+
 var editor: Control
 var _path: String
 var base_control: Control
@@ -96,8 +98,41 @@ func _get_drag_data(_p):
 	var preview := drag_previel.duplicate()
 	preview.modulate.a = 0.66
 	
-	
-	
+	dragging = true
 	
 	set_drag_preview(preview)
 	return {"type": "resource", "resource": load("res://addons/kassandra/assets/temp.tres")}
+
+
+var flag: bool = true
+func _notification(what):
+	if what == NOTIFICATION_DRAG_END:
+		flag = true
+		if dragging:
+			var obj: Object = pp.get_edited_object()
+			searsh_inspect(pp.get_child(0), obj)
+			
+		dragging = false
+
+
+func searsh_inspect(inspector: VBoxContainer, obj: Object):
+	for child in inspector.get_children():
+		var m_pos: Vector2 = child.get_local_mouse_position()
+		
+		if Rect2(Vector2(), child.size).has_point(m_pos):
+			print("clicado em ", inspector, child)
+			
+			for i in child.get_children():
+				print(i)
+				
+				if i.get_class() == "EditorInspectorSection":
+					print(i.get_edited_property())
+					
+				elif i.get_class() == "EditorPropertyResource":
+					obj = i.get_edited_object()
+					print(i.get_edited_property())
+					
+					if i.get_child(0).get_class() == "EditorResourcePicker":
+						if i.get_child(1):
+							searsh_inspect(i.get_child(1).get_child(0).get_child(0), obj)
+			return

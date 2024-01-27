@@ -8,8 +8,6 @@ const SAVE_DATA_PATH := "kassandra.data"
 const KASSANDRA_POPUP_ID := 666
 const KASSANDRA_POPUP_INDEX := 13
 
-const INSPECTOR = preload("res://addons/kassandra/scripts/inspector.gd")
-
 var editor_interface: EditorInterface
 var scripts_popup2: PopupMenu
 var scripts_popup: PopupMenu
@@ -17,7 +15,7 @@ var base_control: Control
 var scene_tabbar: TabBar
 var scene_popup: PopupMenu
 var main_panel: Control
-var inspector: EditorInspectorPlugin
+
 var inspector_save_popup: PopupMenu
 
 var project_global_path: String = ProjectSettings.globalize_path("res://")
@@ -36,10 +34,6 @@ func _enter_tree():
 	
 	main_panel.plugin = self
 	main_panel.load_data(data)
-	
-	inspector = INSPECTOR.new()
-	inspector.plugin = self
-	add_inspector_plugin(inspector)
 	
 	editor_interface.get_editor_main_screen().add_child(main_panel)
 	_make_visible(false)
@@ -68,8 +62,6 @@ func _enter_tree():
 func _exit_tree():
 	if is_instance_valid(main_panel):
 		main_panel.queue_free()
-	
-	remove_inspector_plugin(inspector)
 	
 	scripts_popup.remove_item(scripts_popup.get_index(KASSANDRA_POPUP_ID))
 	scene_popup.index_pressed.disconnect(_scene_popup_pressed)
